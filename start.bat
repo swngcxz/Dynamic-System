@@ -1,0 +1,9 @@
+@echo off
+echo Starting ECOBIN Smart Bin Monitoring System...
+echo.
+echo Installing dependencies...
+call npm install
+echo.
+echo Starting server...
+call npm run dev
+pause
