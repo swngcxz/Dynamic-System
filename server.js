@@ -53,10 +53,27 @@ app.set('io', io);
 
 const PORT = process.env.PORT || 3000;
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
     console.log(`🚀 ECOBIN Smart Bin Monitoring System running on port ${PORT}`);
-    console.log(`📱 Access the application at: http://localhost:${PORT}`);
-    console.log(`🔗 API endpoints available at: http://localhost:${PORT}/api/`);
+    console.log(`📱 Access the application at: http://0.0.0.0:${PORT}`);
+    console.log(`🔗 API endpoints available at: http://0.0.0.0:${PORT}/api/`);
+    console.log(`✅ Server started successfully at ${new Date().toISOString()}`);
+});
+
+// Add error handling
+server.on('error', (error) => {
+    console.error('❌ Server error:', error);
+    process.exit(1);
+});
+
+process.on('uncaughtException', (error) => {
+    console.error('❌ Uncaught Exception:', error);
+    process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+    process.exit(1);
 });
 
 module.exports = { app, server, io };
